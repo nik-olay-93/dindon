@@ -34,7 +34,6 @@ export default class Register extends Vue {
   set password(value: string) {
     this.m_password = value;
   }
-
   async onSubmit(): Promise<void> {
     const response = await registerQuery(this.m_username, this.m_password);
     if (response.field === "") {
