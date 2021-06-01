@@ -2,13 +2,13 @@
   <form @submit.prevent="onSubmit">
     <input v-model="username" />
     <input v-model="password" />
-    <button type="submit">Register</button>
+    <button type="submit">Login</button>
   </form>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import registerQuery from "../entites/queries/register";
+import loginQuery from "../entites/queries/login";
 import { useStore } from "../store";
 import router from "../router/index";
 
@@ -35,7 +35,7 @@ export default class Register extends Vue {
   }
 
   async onSubmit(): Promise<void> {
-    const response = await registerQuery(this.m_username, this.m_password);
+    const response = await loginQuery(this.m_username, this.m_password);
     if (response.field === "") {
       this.store.dispatch("updateUser");
       router.push("/");

@@ -44,11 +44,14 @@ export class UserController {
       username,
       password: hashedPassword,
     });
-    if (ans) {
-      request.session.userId = ans;
-      return new UserInputResponse('', '');
-    } else {
-      return new UserInputResponse('unknown', 'unknown error');
+    switch (ans) {
+      case '-1':
+        return new UserInputResponse('unknown', 'unknown');
+      case '23505':
+        return new UserInputResponse('username', 'This user already exists');
+      default:
+        request.session.userId = ans;
+        return new UserInputResponse('', '');
     }
   }
 

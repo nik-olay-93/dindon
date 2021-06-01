@@ -1,6 +1,9 @@
 import userRouter from "../axios.user";
 
-export default async function loginQuery(username: string, password: string) {
+export default async function loginQuery(
+  username: string,
+  password: string
+): Promise<{ field: string; message: string }> {
   try {
     const response = await userRouter.post("/login", {
       username,

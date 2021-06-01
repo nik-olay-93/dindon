@@ -30,6 +30,10 @@ export class UserService {
       await this.userRepository.save(user);
       return user.id;
     } catch (e) {
+      if (e.code == '23505') {
+        return '23505';
+      }
+
       console.log(e);
       return '-1';
     }
