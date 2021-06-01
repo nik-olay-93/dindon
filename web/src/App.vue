@@ -8,9 +8,16 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import NavBar from "./components/NavBar.vue";
+import { useStore } from "./store";
 
 @Options({ components: { NavBar } })
-export default class App extends Vue {}
+export default class App extends Vue {
+  store = useStore();
+
+  mounted(): void {
+    this.store.dispatch("updateUser");
+  }
+}
 </script>
 <style lang="scss">
 #app {

@@ -1,9 +1,9 @@
 <template>
-  <form @submit.prevent="onSubmit">
+  <div class="loginform">
     <input v-model="username" />
     <input v-model="password" />
-    <button type="submit">Login</button>
-  </form>
+    <button @click.prevent="onSubmit" type="submit">Login</button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -44,4 +44,14 @@ export default class Register extends Vue {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.loginform {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  input {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+}
+</style>
