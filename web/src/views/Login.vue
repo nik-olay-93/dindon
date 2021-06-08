@@ -1,9 +1,14 @@
 <template>
-  <div class="loginform">
+  <form class="loginform" @submit.prevent="onSubmit">
     <input v-model="username" />
-    <input v-model="password" />
-    <button @click.prevent="onSubmit" type="submit">Login</button>
-  </div>
+    <input v-model="password" type="password" />
+    <error-field
+      :field="eField"
+      :message="eMessage"
+      v-if="eMessage"
+    ></error-field>
+    <button type="submit">Login</button>
+  </form>
 </template>
 
 <script lang="ts">
@@ -11,11 +16,17 @@ import { Options, Vue } from "vue-class-component";
 import loginQuery from "../entites/queries/login";
 import { useStore } from "../store";
 import router from "../router/index";
+import ErrorField from "../components/ErrorField.vue";
 
-@Options({})
+@Options({
+  components: {
+    ErrorField,
+  },
+})
 export default class Register extends Vue {
   private m_username = "";
   private m_password = "";
+  private response = { message: "", field: "" };
   store = useStore();
 
   get username(): string {
@@ -34,9 +45,17 @@ export default class Register extends Vue {
     this.m_password = value;
   }
 
+  get eField(): string {
+    return this.response.field;
+  }
+
+  get eMessage(): string {
+    return this.response.message;
+  }
+
   async onSubmit(): Promise<void> {
-    const response = await loginQuery(this.m_username, this.m_password);
-    if (response.field === "") {
+    this.response = await loginQuery(this.m_username, this.m_password);
+    if (this.response.field === "") {
       this.store.dispatch("updateUser");
       router.push("/");
     }
@@ -44,7 +63,7 @@ export default class Register extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .loginform {
   display: flex;
   flex-flow: column;
@@ -52,6 +71,9 @@ export default class Register extends Vue {
   input {
     margin-top: 2px;
     margin-bottom: 2px;
+  }
+  button {
+    margin-top: 2px;
   }
 }
 </style>

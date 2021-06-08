@@ -11,7 +11,7 @@ export const key: InjectionKey<Store<State>> = Symbol();
 
 export default createStore<State>({
   state: {
-    user: { id: "1", username: "mock" },
+    user: undefined,
   },
   mutations: {
     setUser(state, user: User) {

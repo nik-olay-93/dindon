@@ -1,7 +1,12 @@
 <template>
-  <form @submit.prevent="onSubmit">
+  <form class="loginform" @submit.prevent="onSubmit">
     <input v-model="username" />
-    <input v-model="password" />
+    <input v-model="password" type="password" />
+    <error-field
+      :field="eField"
+      :message="eMessage"
+      v-if="eMessage"
+    ></error-field>
     <button type="submit">Register</button>
   </form>
 </template>
@@ -10,12 +15,18 @@
 import { Options, Vue } from "vue-class-component";
 import registerQuery from "../entites/queries/register";
 import { useStore } from "../store";
+import ErrorField from "../components/ErrorField.vue";
 import router from "../router/index";
 
-@Options({})
+@Options({
+  components: {
+    ErrorField,
+  },
+})
 export default class Register extends Vue {
   private m_username = "";
   private m_password = "";
+  private response = { message: "", field: "" };
   store = useStore();
 
   get username(): string {
@@ -34,9 +45,17 @@ export default class Register extends Vue {
     this.m_password = value;
   }
 
+  get eField(): string {
+    return this.response.field;
+  }
+
+  get eMessage(): string {
+    return this.response.message;
+  }
+
   async onSubmit(): Promise<void> {
-    const response = await registerQuery(this.m_username, this.m_password);
-    if (response.field === "") {
+    this.response = await registerQuery(this.m_username, this.m_password);
+    if (this.response.field === "") {
       this.store.dispatch("updateUser");
       router.push("/");
     }

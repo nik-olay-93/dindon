@@ -2,9 +2,14 @@
   <div class="navBar">
     <div v-if="username">{{ username }}</div>
     <div class="buttons">
-      <router-link class="routeLink" to="/login">Login</router-link>
-      <router-link class="routeLink" to="/register">Register</router-link>
-      <a v-on:click="onLogout">Logout</a>
+      <router-link to="/">Home</router-link>
+      <div v-if="!username">
+        <router-link to="/login">Login</router-link>
+        <router-link to="/register">Register</router-link>
+      </div>
+      <div v-else>
+        <a class="routeLink" v-on:click="onLogout">Logout</a>
+      </div>
     </div>
   </div>
 </template>
@@ -35,17 +40,26 @@ export default class NavBar extends Vue {
 
 <style lang="scss" scoped>
 .navBar {
-  background-color: red;
+  font-weight: 600;
 }
 
 .buttons {
   display: flex;
   flex-flow: row;
   justify-content: center;
-}
+  a {
+    margin-left: 2px;
+    margin-right: 2px;
 
-.routeLink {
-  margin-left: 2px;
-  margin-right: 2px;
+    text-decoration: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:visited {
+      color: inherit;
+    }
+  }
 }
 </style>
