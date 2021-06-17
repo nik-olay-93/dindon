@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
-import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
+import { MulterModule } from '@nestjs/platform-express';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
-import { UserModule } from './user/user.model';
+import { UserModule } from './user/user.module';
+import { Video } from './video/video.entity';
+import { VideoModule } from './video/video.module';
 
 @Module({
   imports: [
@@ -10,12 +13,13 @@ import { UserModule } from './user/user.model';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: '1234',
       database: 'postgres',
-      entities: [User],
+      entities: [User, Video],
       synchronize: true,
     }),
     UserModule,
+    VideoModule,
   ],
 })
 export class AppModule {}

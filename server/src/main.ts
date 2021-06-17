@@ -15,7 +15,7 @@ async function bootstrap() {
   const pgPool = new pg.Pool({
     database: 'postgres',
     user: 'postgres',
-    password: 'postgres',
+    password: '1234',
     port: 5432,
   });
 

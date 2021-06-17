@@ -8,7 +8,7 @@
         <router-link to="/register">Register</router-link>
       </div>
       <div v-else>
-        <a class="routeLink" v-on:click="onLogout">Logout</a>
+        <a class="routeLink" @click="onLogout">Logout</a>
       </div>
     </div>
   </div>
