@@ -13,7 +13,7 @@ import { VideoModule } from './video/video.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '1234',
+      password: () => process.env.DB_PASSWORD!,
       database: 'postgres',
       entities: [User, Video],
       synchronize: true,

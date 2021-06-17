@@ -3,6 +3,7 @@ import session, { Session } from 'express-session';
 import { AppModule } from './app.module';
 import pg from 'pg';
 import connectPg from 'connect-pg-simple';
+require('dotenv').config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -14,8 +15,8 @@ async function bootstrap() {
 
   const pgPool = new pg.Pool({
     database: 'postgres',
-    user: 'postgres',
-    password: '1234',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     port: 5432,
   });
 

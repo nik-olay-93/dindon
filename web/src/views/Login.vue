@@ -63,7 +63,7 @@ export default class Register extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .loginform {
   display: flex;
   flex-flow: column;

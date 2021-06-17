@@ -3,12 +3,13 @@ import {
   Get,
   Post,
   Req,
+  Res,
   UploadedFile,
   UseInterceptors,
-  Session,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Request } from 'express';
+import { Request, Response, response } from 'express';
+import fs from 'fs';
 import { Video } from './video.entity';
 import { VideoService } from './video.service';
 
@@ -17,21 +18,24 @@ export class VideoController {
   constructor(private videoService: VideoService) {}
 
   @Get('/:id')
-  async getVideo(@Req() request: Request): Promise<Video | undefined> {
-    return await this.videoService.findOne(request.params.id);
+  async getVideo(@Req() request: Request, @Res() res: Response) {
+    const video = await this.videoService.findOne(request.body.id);
+    if (!video) {
+      res.sendStatus(404);
+      return;
+    }
+    res.sendFile(`${process.cwd()}/uploads/${video.name}`);
+    return;
   }
 
-  @Post('upload')
+  @Post('/upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
     @Req() request: Request,
-  ) {
-    if (!file.mimetype.includes('video')) {
-      return undefined;
-    }
-
-    if (!request.session.userId) {
+  ): Promise<string | undefined> {
+    if (!file.mimetype.includes('video') || !request.session.userId) {
+      fs.unlinkSync(file.path);
       return undefined;
     }
 
@@ -39,5 +43,7 @@ export class VideoController {
       file,
       request.session.userId,
     );
+
+    return id;
   }
 }

@@ -63,4 +63,17 @@ export default class Register extends Vue {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.loginform {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  input {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  button {
+    margin-top: 2px;
+  }
+}
+</style>
