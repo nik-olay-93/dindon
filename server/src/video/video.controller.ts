@@ -19,7 +19,7 @@ export class VideoController {
 
   @Get('/:id')
   async getVideo(@Req() request: Request, @Res() res: Response) {
-    const video = await this.videoService.findOne(request.body.id);
+    const video = await this.videoService.findOne(request.params.id);
     if (!video) {
       res.sendStatus(404);
       return;
