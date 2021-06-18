@@ -17,7 +17,7 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import { useStore } from "../store";
-import logoutQuery from "../entites/queries/logout";
+import logoutQuery from "../entites/user/queries/logout";
 
 @Options({
   components: {},

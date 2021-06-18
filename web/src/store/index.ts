@@ -1,5 +1,5 @@
-import meQuery from "@/entites/queries/me";
-import { User } from "@/entites/user.interface";
+import meQuery from "@/entites/user/queries/me";
+import { User } from "@/entites/user/user.interface";
 import { InjectionKey } from "@vue/runtime-core";
 import { createStore, Store, useStore as baseUseStore } from "vuex";
 

@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import registerQuery from "../entites/queries/register";
+import registerQuery from "../entites/user/queries/register";
 import { useStore } from "../store";
 import ErrorField from "../components/ErrorField.vue";
 import router from "../router/index";

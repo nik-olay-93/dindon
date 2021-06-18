@@ -3,7 +3,7 @@ import userRouter from "../axios.user";
 export default async function registerQuery(
   username: string,
   password: string
-) {
+): Promise<{ field: string; message: string }> {
   try {
     const response = await userRouter.post("/register", {
       username,

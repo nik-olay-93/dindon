@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import loginQuery from "../entites/queries/login";
+import loginQuery from "../entites/user/queries/login";
 import { useStore } from "../store";
 import router from "../router/index";
 import ErrorField from "../components/ErrorField.vue";
