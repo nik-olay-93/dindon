@@ -15,7 +15,7 @@ export default class Watch extends Vue {
   }
 
   get source(): string {
-    return `http://localhost:3000/video/${this.id}`;
+    return `http://localhost:3000/video/single/${this.id}`;
   }
 }
 </script>

@@ -13,11 +13,23 @@ import fs from 'fs';
 import { Video } from './video.entity';
 import { VideoService } from './video.service';
 
+export function filterVideo(video: Video) {
+  return {
+    id: video.id,
+    name: video.name,
+    createdAt: video.createdAt,
+    creator: {
+      id: video.creator.id,
+      username: video.creator.username,
+    },
+  };
+}
+
 @Controller('/video')
 export class VideoController {
   constructor(private videoService: VideoService) {}
 
-  @Get('/:id')
+  @Get('/single/:id')
   async getVideo(@Req() request: Request, @Res() res: Response) {
     const video = await this.videoService.findOne(request.params.id);
     if (!video) {
@@ -26,6 +38,13 @@ export class VideoController {
     }
     res.sendFile(`${process.cwd()}/uploads/${video.name}`);
     return;
+  }
+
+  @Get('/explore')
+  async getRecent(@Req() req: Request) {
+    const limit = +((req.query.c as string) ?? '20');
+    const result = await this.videoService.findLimited(limit);
+    return result.map((video) => filterVideo(video));
   }
 
   @Post('/upload')

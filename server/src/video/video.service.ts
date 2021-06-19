@@ -20,6 +20,21 @@ export class VideoService {
     }
   }
 
+  async findLimited(limit: number): Promise<Video[]> {
+    try {
+      return await this.videoRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+        take: limit,
+        relations: ['creator'],
+      });
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
+
   async createVideo(file: Express.Multer.File, creatorId: string) {
     try {
       const user = await this.userService.findOne(creatorId);
