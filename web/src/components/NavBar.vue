@@ -8,6 +8,7 @@
         <router-link to="/register">Register</router-link>
       </div>
       <div v-else>
+        <router-link to="/upload">Upload</router-link>
         <a class="routeLink" @click="onLogout">Logout</a>
       </div>
     </div>

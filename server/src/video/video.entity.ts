@@ -16,6 +16,9 @@ export class Video {
   @Column()
   name!: string;
 
+  @Column({ nullable: true })
+  title?: string;
+
   @ManyToOne(() => User, (user) => user.videos)
   creator!: User;
 

@@ -35,11 +35,16 @@ export class VideoService {
     }
   }
 
-  async createVideo(file: Express.Multer.File, creatorId: string) {
+  async createVideo(
+    file: Express.Multer.File,
+    title: string,
+    creatorId: string,
+  ) {
     try {
       const user = await this.userService.findOne(creatorId);
       const video = this.videoRepository.create({
         name: file.filename,
+        title: title,
         creator: user,
       });
       await this.videoRepository.save(video);

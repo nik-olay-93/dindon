@@ -16,7 +16,7 @@ import { VideoService } from './video.service';
 export function filterVideo(video: Video) {
   return {
     id: video.id,
-    name: video.name,
+    title: video.title,
     createdAt: video.createdAt,
     creator: {
       id: video.creator.id,
@@ -60,6 +60,7 @@ export class VideoController {
 
     const id = await this.videoService.createVideo(
       file,
+      request.body.title,
       request.session.userId,
     );
 
