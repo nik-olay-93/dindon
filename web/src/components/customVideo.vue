@@ -20,3 +20,11 @@ export default class customVideo extends Vue.with(Props) {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.cVideo {
+  video {
+    max-width: 33%;
+  }
+}
+</style>

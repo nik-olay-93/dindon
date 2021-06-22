@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from 'src/user/user.service';
-import { Repository } from 'typeorm';
+import { LessThan, Repository } from 'typeorm';
 import { Video } from './video.entity';
 
 @Injectable()
@@ -20,7 +20,10 @@ export class VideoService {
     }
   }
 
-  async findLimited(limit: number): Promise<Video[]> {
+  async findLimited(
+    limit: number,
+    lastDate: number = Date.now(),
+  ): Promise<Video[]> {
     try {
       return await this.videoRepository.find({
         order: {
@@ -28,6 +31,9 @@ export class VideoService {
         },
         take: limit,
         relations: ['creator'],
+        where: {
+          createdAt: LessThan(new Date(lastDate)),
+        },
       });
     } catch (err) {
       console.log(err);

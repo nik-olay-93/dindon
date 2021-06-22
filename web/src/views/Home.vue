@@ -1,25 +1,29 @@
 <template>
   <div class="home">
-    <ul v-for="(video, index) in videos" :key="index">
+    <ul v-for="(video, index) in store.state.videos" :key="index">
       <custom-video :video="video" />
     </ul>
+    <button @click.prevent="moreVideos">Fetch More</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import Video from "../entites/video/entity.video";
-import exploreQuery from "../entites/video/queries/exploreVideos";
 import customVideo from "../components/customVideo.vue";
+import { useStore } from "../store";
 
 @Options({
   components: { customVideo },
 })
 export default class Home extends Vue {
-  videos: Video[] = [];
+  store = useStore();
 
-  async beforeMount(): Promise<void> {
-    this.videos = await exploreQuery();
+  beforeMount(): void {
+    this.store.dispatch("fetchVideos", 2);
+  }
+
+  moreVideos(): void {
+    this.store.dispatch("fetchVideos", 1);
   }
 }
 </script>

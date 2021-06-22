@@ -8,7 +8,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Request, Response, response } from 'express';
+import { Request, Response } from 'express';
 import fs from 'fs';
 import { Video } from './video.entity';
 import { VideoService } from './video.service';
@@ -40,10 +40,21 @@ export class VideoController {
     return;
   }
 
+  @Get('/watch/:id')
+  async watchVideo(@Req() request: Request, @Res() response: Response) {
+    const video = await this.videoService.findOne(request.params.id);
+    if (!video) {
+      response.sendStatus(404);
+      return;
+    }
+    return video;
+  }
+
   @Get('/explore')
   async getRecent(@Req() req: Request) {
     const limit = +((req.query.c as string) ?? '20');
-    const result = await this.videoService.findLimited(limit);
+    const lastD = +(req.query.a as string) || Date.now();
+    const result = await this.videoService.findLimited(limit, lastD);
     return result.map((video) => filterVideo(video));
   }
 
