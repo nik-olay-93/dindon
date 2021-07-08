@@ -18,8 +18,8 @@ import { useStore } from "../store";
 export default class Home extends Vue {
   store = useStore();
 
-  beforeMount(): void {
-    this.store.dispatch("fetchVideos", 2);
+  async beforeMount(): Promise<void> {
+    await this.store.getters.getAllVideos;
   }
 
   moreVideos(): void {

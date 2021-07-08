@@ -44,7 +44,7 @@ export default class Upload extends Vue {
     }
     const response = await createVideo(this.file, this._title);
     if (response) {
-      this.router.push(`/watch/${response}`);
+      this.router.push(`/video/${response}`);
     }
   }
 }

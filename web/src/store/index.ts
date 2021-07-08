@@ -2,6 +2,7 @@ import meQuery from "@/entites/user/queries/me";
 import { User } from "@/entites/user/user.interface";
 import Video from "@/entites/video/entity.video";
 import exploreQuery from "@/entites/video/queries/exploreVideos";
+import watchQuery from "@/entites/video/queries/watchVideo";
 import { InjectionKey } from "@vue/runtime-core";
 import { createStore, Store, useStore as baseUseStore } from "vuex";
 
@@ -43,10 +44,27 @@ export default createStore<State>({
 
       commit("appendVideos", response);
     },
+
+    async fetchSingleVideo({ commit, getters }, id: string) {
+      if (getters.getVideoById(id) != undefined) {
+        return;
+      }
+      const video = await watchQuery(id);
+      if (video) {
+        commit("appendVideos", [video]);
+      }
+    },
   },
   getters: {
     getVideoById: (state) => (id: string) => {
       return state.videos.find((video) => video.id == id);
+    },
+    getAllVideos: async (state) => {
+      const { dispatch } = useStore();
+      if (state.videos.length == 0) {
+        dispatch("fetchVideos");
+      }
+      return state.videos;
     },
   },
   modules: {},

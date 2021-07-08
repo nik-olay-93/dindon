@@ -14,7 +14,9 @@ export class VideoService {
 
   async findOne(id: string): Promise<Video | undefined> {
     try {
-      return await this.videoRepository.findOne(id);
+      return await this.videoRepository.findOne(id, {
+        relations: ['creator'],
+      });
     } catch (e) {
       return undefined;
     }

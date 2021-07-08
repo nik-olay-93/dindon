@@ -18,6 +18,7 @@ export function filterVideo(video: Video) {
     id: video.id,
     title: video.title,
     createdAt: video.createdAt,
+    updatedAt: video.updatedAt,
     creator: {
       id: video.creator.id,
       username: video.creator.username,
@@ -47,7 +48,8 @@ export class VideoController {
       response.sendStatus(404);
       return;
     }
-    return video;
+    response.send(video);
+    return;
   }
 
   @Get('/explore')
