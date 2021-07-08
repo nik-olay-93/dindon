@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <ul v-for="(video, index) in store.state.videos" :key="index">
-      <custom-video :video="video" />
+      <custom-video hasLink="true" :video="video" />
     </ul>
     <button @click.prevent="moreVideos">Fetch More</button>
   </div>
