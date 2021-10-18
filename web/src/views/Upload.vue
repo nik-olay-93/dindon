@@ -16,16 +16,9 @@ import createVideo from "../entites/video/queries/createVideo";
   components: { ErrorField },
 })
 export default class Upload extends Vue {
-  private router = useRouter();
-  private file: File | undefined;
-  private _title = "";
-
-  public get title(): string {
-    return this._title;
-  }
-  public set title(value: string) {
-    this._title = value;
-  }
+  router = useRouter();
+  file: File | undefined;
+  title = "";
 
   handleChange(e: {
     target: { files: File[] };
@@ -42,7 +35,7 @@ export default class Upload extends Vue {
     if (!this.file) {
       return;
     }
-    const response = await createVideo(this.file, this._title);
+    const response = await createVideo(this.file, this.title);
     if (response) {
       this.router.push(`/video/${response}`);
     }

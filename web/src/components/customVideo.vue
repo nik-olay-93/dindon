@@ -1,6 +1,7 @@
 <template>
   <div class="cVideo">
-    <p>{{ video.title }} by {{ video.creator.username }}</p>
+    <p>{{ video.title }}</p>
+    <p>by {{ video.creator.username }}</p>
     <component :is="currentComponent" :to="videoUrl">
       <video loop autoplay muted>
         <source :src="source" />
@@ -43,6 +44,10 @@ export default class customVideo extends Vue.with(Props) {
 .cVideo {
   video {
     max-width: 33%;
+  }
+
+  p {
+    font-size: x-large;
   }
 }
 </style>

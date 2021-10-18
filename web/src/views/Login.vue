@@ -24,26 +24,10 @@ import ErrorField from "../components/ErrorField.vue";
   },
 })
 export default class Register extends Vue {
-  private m_username = "";
-  private m_password = "";
-  private response = { message: "", field: "" };
+  username = "";
+  password = "";
+  response = { message: "", field: "" };
   store = useStore();
-
-  get username(): string {
-    return this.m_username;
-  }
-
-  set username(value: string) {
-    this.m_username = value;
-  }
-
-  get password(): string {
-    return this.m_password;
-  }
-
-  set password(value: string) {
-    this.m_password = value;
-  }
 
   get eField(): string {
     return this.response.field;
@@ -54,7 +38,7 @@ export default class Register extends Vue {
   }
 
   async onSubmit(): Promise<void> {
-    this.response = await loginQuery(this.m_username, this.m_password);
+    this.response = await loginQuery(this.username, this.password);
     if (this.response.field === "") {
       this.store.dispatch("updateUser");
       router.push("/");

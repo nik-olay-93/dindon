@@ -41,6 +41,8 @@ export default class NavBar extends Vue {
 
 <style lang="scss" scoped>
 .navBar {
+  margin-top: 5px;
+  background-color: white;
   font-weight: 600;
 }
 

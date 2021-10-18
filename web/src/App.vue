@@ -1,7 +1,7 @@
 <template>
   <div>
-    <nav-bar></nav-bar>
-    <router-view />
+    <nav-bar class="nb" />
+    <router-view class="rt" />
   </div>
 </template>
 
@@ -26,5 +26,16 @@ export default class App extends Vue {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.rt {
+  margin-top: 50px;
+}
+.nb {
+  position: fixed;
+
+  left: 0;
+  top: 0;
+  width: 100vw;
+  z-index: 200;
 }
 </style>
